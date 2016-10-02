@@ -1,0 +1,15 @@
+elasticsearch:
+  build: elastic
+  command: "bin/plugin install elasticsearch/elasticsearch-mapper-attachments/3.1.2"
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+#  image: elasticsearch:latest
+#  command: elasticsearch -Des.network.host=0.0.0.0
+pdfindexer:
+  build: pdf-indexer
+  command: java -jar target/pdf-indexer.jar
+  ports:
+    - "8080:8080"
+  links:
+    - elasticsearch
