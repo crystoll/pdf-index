@@ -7,8 +7,8 @@ elasticsearch:
 #  image: elasticsearch:latest
 #  command: elasticsearch -Des.network.host=0.0.0.0
 pdfindexer:
-  build: pdf-indexer
-  command: java -jar target/pdf-indexer.jar
+  build: indexserver
+  command: java -jar target/indexserver.jar
   ports:
     - "8080:8080"
   links:
