@@ -2,12 +2,18 @@ version: '2'
 
 services:
   elasticsearch:
-    build: elastic
+    build: ./elastic
     command: elasticsearch -Des.network.host=0.0.0.0
     ports:
       - "9200:9200"
       - "9300:9300"
+    volumes:
+      - ./elastic/esdata:/usr/share/elasticsearch/data
   pdfindexer:
-    build: indexserver
+    build: ./indexserver
     ports:
       - "8080:8080"
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./indexserver/pdf-files:/pdf-files:ro

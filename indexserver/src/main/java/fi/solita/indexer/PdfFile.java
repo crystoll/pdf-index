@@ -5,12 +5,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(
-        indexName = "pdfs",
-        type = "pdffile",
-        shards = 1,
-        replicas = 0,
-        refreshInterval = "-1")
+@Document(indexName = "pdfs",type = "pdffile")
 public class PdfFile {
 
 
@@ -18,7 +13,7 @@ public class PdfFile {
     @Id
     private String name;
 
-    @Field(type = FieldType.Attachment, store = true)
+    @Field(type = FieldType.Attachment)
     private String content;
 
     public String getContent() {

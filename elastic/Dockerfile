@@ -1,9 +1,9 @@
-FROM elasticsearch:2.1.2
+FROM elasticsearch:2.4
 
 # Install HEAD plugin
 RUN /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
 
-# Install HEAD plugin
-RUN /usr/share/elasticsearch/bin/plugin install elasticsearch/elasticsearch-mapper-attachments/3.1.2
+# Install MAPPER ATTACHMENTS plugin
+RUN /usr/share/elasticsearch/bin/plugin install mapper-attachments
 
 EXPOSE 9200 9300
