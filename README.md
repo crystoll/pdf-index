@@ -21,3 +21,5 @@ indexer is just self-contained maven spring boot project, and refers to elastics
 https://github.com/docker/docker/issues/23992
 https://github.com/docker/docker/issues/23900
 https://github.com/docker/docker/issues/22981
+
+- Currently indexing runs out of heapspace with large amounts of pdf files
