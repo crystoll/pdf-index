@@ -10,5 +10,5 @@ hs_err_pid*
 .idea/
 *.iml
 target/
-pdf-files/
-esdata/
+indexserver/pdf-files/**
+elastic/esdata/**

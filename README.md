@@ -11,9 +11,13 @@ But development-time it might be convenient to separately run elasticsearch with
 There are some convenience scripts provided in elastic-folder
 indexer is just self-contained maven spring boot project, and refers to elasticsearch cluster at localhost:9300
 
+- Containers are now able to see eachothers ports using docker-compose v2 networking
+- Containers are now mounting local folders under indexserver and elastic projects to persist data and find pdfs to index (elastic/esdata, indexserver/pdf-files)
+
 
 ## Issues
 
-- Containers are now able to see eachothers ports using docker-compose v2 networking
-- But when you run the maven jar in a container, it lacks the pdf-files folder as a resource. It should be mapped.
-- Also, elasticsearch is using immutable container image, so it forgets all indexing work at reboot. Might want to add a permanent volume.
+- Note: At least on windows 10, you have to enable drive sharing if you want to have the mounted volumes to work. This seems to be current issue with Docker for Windows.
+https://github.com/docker/docker/issues/23992
+https://github.com/docker/docker/issues/23900
+https://github.com/docker/docker/issues/22981
