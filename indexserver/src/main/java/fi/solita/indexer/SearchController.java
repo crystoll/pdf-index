@@ -4,6 +4,7 @@ package fi.solita.indexer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,14 +27,13 @@ public class SearchController {
     @Autowired
     private PdfFileRepository pdfFileRepository;
 
-    @RequestMapping(value = "/index", method = GET, produces = "text/plain")
-    public String indexPdfs() throws IOException {
+    @Async
+    @RequestMapping(value = "/index", method = GET)
+    public void indexPdfs() throws IOException {
         pdfFileRepository.deleteAll();
-
         String pdfPath = "pdf-files";
         Files.list(Paths.get(pdfPath))
                 .forEach(f -> storePdfFile(f));
-        return "OK";
     }
 
     @RequestMapping(value="/search", method = GET, produces = "application/json")
@@ -51,9 +51,13 @@ public class SearchController {
         System.out.println(file.getFileName().toString());
         PdfFile pdfFile = new PdfFile(file.getFileName().toString());
         try {
+            System.out.println("Reading file as byte array...");
             byte[] content = Files.readAllBytes(file);
+            System.out.println("File was read");
             pdfFile.setContent(org.elasticsearch.common.Base64.encodeBytes(content));
+            System.out.println("Content was base64 encoded, size " + pdfFile.getContent().length());
             pdfFileRepository.save(pdfFile);
+            System.out.println("File was saved");
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
