@@ -3,6 +3,8 @@ version: '2'
 services:
   elasticsearch:
     build: ./elastic
+    environment:
+#      - ES_HEAP_SIZE=1g
     command: elasticsearch -Des.network.host=0.0.0.0
     ports:
       - "9200:9200"
