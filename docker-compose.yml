@@ -4,7 +4,7 @@ services:
   elasticsearch:
     build: ./elastic
     environment:
-#      - ES_HEAP_SIZE=1g
+      - ES_HEAP_SIZE=4g
     command: elasticsearch -Des.network.host=0.0.0.0
     ports:
       - "9200:9200"
