@@ -48,7 +48,7 @@ public class SearchController {
     public void indexPdfs() throws IOException {
         pdfFileRepository.deleteAll();
         String pdfPath = System.getenv("PDF_FOLDER");
-        if (pdfPath == null) pdfPath="pdf-files";
+        if (pdfPath == null) pdfPath="./pdf-files";
         logger.info(String.format("Using PDF_FOLDER %s", pdfPath));
 
         Files.list(Paths.get(pdfPath))
