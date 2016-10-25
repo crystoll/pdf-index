@@ -47,7 +47,10 @@ public class SearchController {
     @RequestMapping(value = "/index", method = GET)
     public void indexPdfs() throws IOException {
         pdfFileRepository.deleteAll();
-        String pdfPath = "pdf-files";
+        String pdfPath = System.getenv("PDF_FOLDER");
+        if (pdfPath == null) pdfPath="pdf-files";
+        logger.info(String.format("Using PDF_FOLDER %s", pdfPath));
+
         Files.list(Paths.get(pdfPath))
                 .filter((f) -> f.getFileName().toString().endsWith(".pdf"))
                 .forEach(f -> storePdfFile(f));
@@ -65,18 +68,6 @@ public class SearchController {
                         regexpQuery("content", String.format(".*%s.*", query))
                 ))
                 .build();
-//        SearchQuery searchQuery = new NativeSearchQueryBuilder()
-//                .withFilter(boolQuery().should(
-//                        regexpQuery("contentText", String.format(".*%s.*", query))
-//                ))
-//                .build();
-
-//        SearchQuery searchQuery = new NativeSearchQueryBuilder()
-//                .withFilter(
-//                        boolQuery().should(
-//                                queryStringQuery(query).analyzeWildcard(true)
-//                                        .field("title", 2.0f).field("name").field("contentText").field("content")))
-//                .build();
 
         Iterable<PdfFile> results = pdfFileRepository.search(searchQuery);
         results.forEach(p -> names.add(p.getName()));

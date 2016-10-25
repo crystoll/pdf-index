@@ -1,4 +1,5 @@
 FROM openjdk:8
+ENV PDF_FOLDER ./pdf-files 
 VOLUME /tmp
 ADD target/indexserver.jar app.jar
 RUN sh -c 'touch /app.jar'
