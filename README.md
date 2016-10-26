@@ -1,6 +1,9 @@
 # pdf-index
 Elastic Search PDF indexer with docker compose image
 
+This is the vert.x version
+
+
 ## How to run
 
 Ideally you could just do
